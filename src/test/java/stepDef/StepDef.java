@@ -4,11 +4,13 @@ import io.cucumber.java.ParameterType;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import ru.yandex.qatools.ashot.AShot;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,18 +26,21 @@ public class StepDef {
     @ParameterType(".*")
     public Sort sort(String sorts){return Sort.valueOf(sorts);}
 
+    @Step
     @Пусть("открыт ресурс авито")
     public void open() {
         driver.get("https://www.avito.ru/");
         driver.manage().window().maximize();
     }
 
+    @Step
     @И("в выпадающем списке категорий выбрана {categories}")
     public void categorySet(Categories byCategory) {
         WebElement category = driver.findElement(byCategory.by);
         category.click();
     }
 
+    @Step
     @И("в поле поиска введено значение {word}")
     public void searchString(String str) {
         By bySearch = By.id("search");
@@ -43,6 +48,7 @@ public class StepDef {
         search.sendKeys(str);
     }
 
+    @Step
     @Тогда("кликунть по выпадающему списку региона")
     public void citySeratch() {
         By byCity = By.xpath("//div[@data-marker=\"search-form/region\"]");
@@ -50,6 +56,7 @@ public class StepDef {
         city.click();
     }
 
+    @Step
     @Тогда("в пол регион введено значение {word}")
     public void citySet(String str) {
         By byCityInput = By.xpath("//input[@data-marker=\"popup-location/region/input\"]");
@@ -57,6 +64,7 @@ public class StepDef {
         cityInput.sendKeys(str);
     }
 
+    @Step
     @И("нажата кнопка показать объявления")
     public void citySubmit() throws InterruptedException {
         Thread.sleep(2000);
@@ -65,6 +73,7 @@ public class StepDef {
         citySelect.click();
     }
 
+    @Step
     @Тогда("открылась страница резльтаты по запросу {word}")
     public void cityEnter(String str) {
         By byCityConfirm = By.cssSelector("[data-marker=\"popup-location/save-button\"]");
@@ -72,6 +81,7 @@ public class StepDef {
         cityConfirm.click();
     }
 
+    @Step
     @И("активирован чекбокс только с фотографией")
     public void activationCheckbox() {
         By byCheckbox = By.cssSelector("[data-marker=\"delivery-filter/text\"]");
@@ -86,12 +96,14 @@ public class StepDef {
         searchConfirm.click();
     }
 
+    @Step
     @И("в выпадающем списке сортировка выбрано значение {sort}")
     public void sortList(Sort bySort) {
         WebElement sort = driver.findElement(bySort.by);
         sort.click();
     }
 
+    @Step
     @И("в консоль выведено значение названия и цены {int} первых товаров")
     public void outputInfo(int arg0) {
         By[] byName = new By[arg0];
