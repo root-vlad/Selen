@@ -62,5 +62,7 @@ public class Main {
             System.out.println(price.getText());
         }
 
+
+        driver.close();
     }
 }

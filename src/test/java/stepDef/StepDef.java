@@ -25,40 +25,40 @@ public class StepDef {
     public Sort sort(String sorts){return Sort.valueOf(sorts);}
 
     @Пусть("открыт ресурс авито")
-    public void открытРесурсАвито() {
+    public void open() {
         driver.get("https://www.avito.ru/");
         driver.manage().window().maximize();
     }
 
     @И("в выпадающем списке категорий выбрана {categories}")
-    public void вВыпадающемСпискеКатегорийВыбранаОргтехника(Categories byCategory) {
+    public void categorySet(Categories byCategory) {
         WebElement category = driver.findElement(byCategory.by);
         category.click();
     }
 
     @И("в поле поиска введено значение {word}")
-    public void вПолеПоискаВведеноЗначениеПринтер(String str) {
+    public void searchString(String str) {
         By bySearch = By.id("search");
         WebElement search = driver.findElement(bySearch);
         search.sendKeys(str);
     }
 
     @Тогда("кликунть по выпадающему списку региона")
-    public void кликунтьПоВыпадающемуСпискуРегиона() {
+    public void citySeratch() {
         By byCity = By.xpath("//div[@data-marker=\"search-form/region\"]");
         WebElement city = driver.findElement(byCity);
         city.click();
     }
 
     @Тогда("в пол регион введено значение {word}")
-    public void вПолРегионВведеноЗначениеВладивасток(String str) {
+    public void citySet(String str) {
         By byCityInput = By.xpath("//input[@data-marker=\"popup-location/region/input\"]");
         WebElement cityInput = driver.findElement(byCityInput);
         cityInput.sendKeys(str);
     }
 
     @И("нажата кнопка показать объявления")
-    public void нажатаКнопкаПоказатьОбъявления() throws InterruptedException {
+    public void citySubmit() throws InterruptedException {
         Thread.sleep(2000);
         By byCitySelect = By.xpath("//ul[@data-marker=\"suggest-list\"]/li[1]");
         WebElement citySelect = driver.findElement(byCitySelect);
@@ -66,14 +66,14 @@ public class StepDef {
     }
 
     @Тогда("открылась страница резльтаты по запросу {word}")
-    public void открыласьСтраницаРезльтатыПоЗапросуПринтер(String str) {
+    public void cityEnter(String str) {
         By byCityConfirm = By.cssSelector("[data-marker=\"popup-location/save-button\"]");
         WebElement cityConfirm = driver.findElement(byCityConfirm);
         cityConfirm.click();
     }
 
     @И("активирован чекбокс только с фотографией")
-    public void активированЧекбоксТолькоСФотографией() {
+    public void activationCheckbox() {
         By byCheckbox = By.cssSelector("[data-marker=\"delivery-filter/text\"]");
         WebElement checkbox = driver.findElement(byCheckbox);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkbox);
@@ -87,13 +87,13 @@ public class StepDef {
     }
 
     @И("в выпадающем списке сортировка выбрано значение {sort}")
-    public void вВыпадающемСпискеСортировкаВыбраноЗначениеДороже(Sort bySort) {
+    public void sortList(Sort bySort) {
         WebElement sort = driver.findElement(bySort.by);
         sort.click();
     }
 
     @И("в консоль выведено значение названия и цены {int} первых товаров")
-    public void вКонсольВыведеноЗначениеНазванияИЦеныПервыхТоваров(int arg0) {
+    public void outputInfo(int arg0) {
         By[] byName = new By[arg0];
         By[] byPrice = new By[arg0];
         for (int i = 0; i < arg0; i++) {
@@ -107,5 +107,6 @@ public class StepDef {
             WebElement price = driver.findElement(byPrice[i]);
             System.out.println(price.getText());
         }
+        driver.close();
     }
 }
