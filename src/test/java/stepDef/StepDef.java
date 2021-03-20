@@ -4,13 +4,10 @@ import io.cucumber.java.ParameterType;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.yandex.qatools.ashot.AShot;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +28,9 @@ public class StepDef {
     public void open() {
         driver.get("https://www.avito.ru/");
         driver.manage().window().maximize();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
+
     }
 
     @Step
@@ -39,6 +39,8 @@ public class StepDef {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         WebElement category = driver.findElement(byCategory.by);
         category.click();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -48,6 +50,8 @@ public class StepDef {
         By bySearch = By.id("search");
         WebElement search = driver.findElement(bySearch);
         search.sendKeys(str);
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -57,6 +61,8 @@ public class StepDef {
         By byCity = By.xpath("//div[@data-marker=\"search-form/region\"]");
         WebElement city = driver.findElement(byCity);
         city.click();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -66,6 +72,8 @@ public class StepDef {
         By byCityInput = By.xpath("//input[@data-marker=\"popup-location/region/input\"]");
         WebElement cityInput = driver.findElement(byCityInput);
         cityInput.sendKeys(str);
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -76,6 +84,8 @@ public class StepDef {
         By byCitySelect = By.xpath("//ul[@data-marker=\"suggest-list\"]/li[1]");
         WebElement citySelect = driver.findElement(byCitySelect);
         citySelect.click();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -85,6 +95,8 @@ public class StepDef {
         By byCityConfirm = By.cssSelector("[data-marker=\"popup-location/save-button\"]");
         WebElement cityConfirm = driver.findElement(byCityConfirm);
         cityConfirm.click();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -101,6 +113,8 @@ public class StepDef {
         By bySearchConfirm = By.cssSelector("[data-marker=\"search-filters/submit-button\"]");
         WebElement searchConfirm = driver.findElement(bySearchConfirm);
         searchConfirm.click();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -109,6 +123,8 @@ public class StepDef {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         WebElement sort = driver.findElement(bySort.by);
         sort.click();
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
     }
 
     @Step
@@ -128,6 +144,13 @@ public class StepDef {
             WebElement price = driver.findElement(byPrice[i]);
             System.out.println(price.getText());
         }
+        byte[] scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        saveScreenshot(scrFile);
         driver.close();
+    }
+
+    @Attachment(value = "Page screenshot", type = "image/png")
+    private byte[] saveScreenshot(byte[] screenshot){
+        return screenshot;
     }
 }
