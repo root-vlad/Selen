@@ -36,6 +36,7 @@ public class StepDef {
     @Step
     @И("в выпадающем списке категорий выбрана {categories}")
     public void categorySet(Categories byCategory) {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         WebElement category = driver.findElement(byCategory.by);
         category.click();
     }
@@ -43,6 +44,7 @@ public class StepDef {
     @Step
     @И("в поле поиска введено значение {word}")
     public void searchString(String str) {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By bySearch = By.id("search");
         WebElement search = driver.findElement(bySearch);
         search.sendKeys(str);
@@ -51,6 +53,7 @@ public class StepDef {
     @Step
     @Тогда("кликунть по выпадающему списку региона")
     public void citySeratch() {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By byCity = By.xpath("//div[@data-marker=\"search-form/region\"]");
         WebElement city = driver.findElement(byCity);
         city.click();
@@ -59,6 +62,7 @@ public class StepDef {
     @Step
     @Тогда("в пол регион введено значение {word}")
     public void citySet(String str) {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By byCityInput = By.xpath("//input[@data-marker=\"popup-location/region/input\"]");
         WebElement cityInput = driver.findElement(byCityInput);
         cityInput.sendKeys(str);
@@ -68,6 +72,7 @@ public class StepDef {
     @И("нажата кнопка показать объявления")
     public void citySubmit() throws InterruptedException {
         Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By byCitySelect = By.xpath("//ul[@data-marker=\"suggest-list\"]/li[1]");
         WebElement citySelect = driver.findElement(byCitySelect);
         citySelect.click();
@@ -76,6 +81,7 @@ public class StepDef {
     @Step
     @Тогда("открылась страница резльтаты по запросу {word}")
     public void cityEnter(String str) {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By byCityConfirm = By.cssSelector("[data-marker=\"popup-location/save-button\"]");
         WebElement cityConfirm = driver.findElement(byCityConfirm);
         cityConfirm.click();
@@ -84,6 +90,7 @@ public class StepDef {
     @Step
     @И("активирован чекбокс только с фотографией")
     public void activationCheckbox() {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By byCheckbox = By.cssSelector("[data-marker=\"delivery-filter/text\"]");
         WebElement checkbox = driver.findElement(byCheckbox);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkbox);
@@ -99,6 +106,7 @@ public class StepDef {
     @Step
     @И("в выпадающем списке сортировка выбрано значение {sort}")
     public void sortList(Sort bySort) {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         WebElement sort = driver.findElement(bySort.by);
         sort.click();
     }
@@ -106,6 +114,7 @@ public class StepDef {
     @Step
     @И("в консоль выведено значение названия и цены {int} первых товаров")
     public void outputInfo(int arg0) {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         By[] byName = new By[arg0];
         By[] byPrice = new By[arg0];
         for (int i = 0; i < arg0; i++) {
